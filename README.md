@@ -44,7 +44,7 @@ Default loggers include logging to console and file.
 ## Default logger with Console support
 
 ```typescript
-import { SimpleLogger, ConsoleLogger, FileLogger } from "./simpleLogger"
+import { SimpleLogger } from "./simpleLogger"
 
 const { error, log, warn } = SimpleLogger.createLogger("simplest logger")
 
