@@ -1,3 +1,5 @@
+![npm](https://img.shields.io/npm/v/espenja-utilities?style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/espenja/espenja-utilities/CI?style=flat-square)
+
 A collection of helpful utilities  
 Install with `npm install espenja-utilities` or `yarn install espenja-utilities`
 
