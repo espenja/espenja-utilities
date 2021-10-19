@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.pickFromObject = exports.defaultFormatters = void 0;
 const defaultErrorHandler = (missingRequired) => {
     throw new Error(`Missing required variables ${missingRequired.join(", ")}`);
 };
@@ -8,12 +11,12 @@ const defaultValidator = (values, missingKeys, keysMarkedRequired, errorHandler)
     }
 };
 const makeDefaultFormatters = (x) => x;
-export const defaultFormatters = makeDefaultFormatters({
+exports.defaultFormatters = makeDefaultFormatters({
     isNot: (not) => (value) => value !== not,
     toInt: (value) => parseInt(value.toString()),
     toBoolean: (value) => value.toLowerCase() === "true"
 });
-export const pickFromObject = (obj, val, options) => {
+const pickFromObject = (obj, val, options) => {
     const validator = options?.customValidator ?? defaultValidator;
     const errorHandler = options?.customErrorHandler ?? defaultErrorHandler;
     const keysMarkedRequired = [];
@@ -45,4 +48,5 @@ export const pickFromObject = (obj, val, options) => {
     validator(values, missingKeys, keysMarkedRequired, errorHandler);
     return values;
 };
+exports.pickFromObject = pickFromObject;
 //# sourceMappingURL=pickFromObject.js.map

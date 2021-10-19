@@ -5,7 +5,6 @@
 	"repository": "https://github.com/espenja/espenja-utilities.git",
 	"author": "Espen Jacobsson <espen.jacobsson@gmail.com>",
 	"license": "MIT",
-	"type": "module",
 	"keywords": [
 		"espenja",
 		"utilities"

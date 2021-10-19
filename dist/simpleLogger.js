@@ -1,4 +1,10 @@
-export class SimpleLogger {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FileLogger = exports.ConsoleLogger = exports.SimpleLogger = void 0;
+class SimpleLogger {
     name;
     options;
     loggers;
@@ -39,10 +45,11 @@ export class SimpleLogger {
         return { log: logger.log, warn: logger.warn, error: logger.error };
     };
 }
+exports.SimpleLogger = SimpleLogger;
 // Console Logger
-import { log as clog, error as cerror, warn as cwarn } from "console";
-import colors from "colors";
-export class ConsoleLogger {
+const console_1 = require("console");
+const colors_1 = __importDefault(require("colors"));
+class ConsoleLogger {
     options;
     constructor(options) {
         this.options = options;
@@ -53,7 +60,7 @@ export class ConsoleLogger {
         const timeStampStr = options.useTimestamps ? options.timestampFormatter(new Date()) : "";
         let logMessage = messageStr;
         if (options.useColors) {
-            logMessage = `${colors.green(timeStampStr)} ${color(nameStr)}: ${messageStr}`;
+            logMessage = `${colors_1.default.green(timeStampStr)} ${color(nameStr)}: ${messageStr}`;
         }
         else {
             logMessage = `${timeStampStr} ${nameStr}: ${messageStr}`;
@@ -64,11 +71,11 @@ export class ConsoleLogger {
     getLogger = (status) => {
         switch (status) {
             case "ERROR":
-                return cerror;
+                return console_1.error;
             case "INFO":
-                return clog;
+                return console_1.log;
             case "WARN":
-                return cwarn;
+                return console_1.warn;
         }
     };
     write = (simpleLogger, status, message, obj) => {
@@ -93,9 +100,9 @@ export class ConsoleLogger {
         return {
             useColors: true,
             colors: {
-                ERROR: colors.red,
-                INFO: colors.blue,
-                WARN: colors.yellow
+                ERROR: colors_1.default.red,
+                INFO: colors_1.default.blue,
+                WARN: colors_1.default.yellow
             }
         };
     };
@@ -107,9 +114,10 @@ export class ConsoleLogger {
         return new ConsoleLogger(useOptions);
     };
 }
+exports.ConsoleLogger = ConsoleLogger;
 // File Logger
-import { appendFileSync, ensureFileSync } from "fs-extra";
-export class FileLogger {
+const fs_extra_1 = require("fs-extra");
+class FileLogger {
     options;
     constructor(options) {
         this.options = options;
@@ -131,8 +139,8 @@ export class FileLogger {
         // Log message
         if (message?.length) {
             for (const logMessage of logMessages) {
-                ensureFileSync(this.options.logFilePath.toString());
-                appendFileSync(this.options.logFilePath.toString(), logMessage + "\n", {
+                (0, fs_extra_1.ensureFileSync)(this.options.logFilePath.toString());
+                (0, fs_extra_1.appendFileSync)(this.options.logFilePath.toString(), logMessage + "\n", {
                     encoding: "utf8"
                 });
             }
@@ -140,8 +148,8 @@ export class FileLogger {
         // Log object
         if (objMessages.length) {
             for (const objMessage of objMessages) {
-                ensureFileSync(this.options.logFilePath.toString());
-                appendFileSync(this.options.logFilePath.toString(), objMessage + "\n", {
+                (0, fs_extra_1.ensureFileSync)(this.options.logFilePath.toString());
+                (0, fs_extra_1.appendFileSync)(this.options.logFilePath.toString(), objMessage + "\n", {
                     encoding: "utf8"
                 });
             }
@@ -151,4 +159,5 @@ export class FileLogger {
         return new FileLogger(options);
     };
 }
+exports.FileLogger = FileLogger;
 //# sourceMappingURL=simpleLogger.js.map
